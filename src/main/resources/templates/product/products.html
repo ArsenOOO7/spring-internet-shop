@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body class="d-flex flex-column min-vh-100 h-100">
+<div th:replace="content/header"></div>
+
+<a th:href="@{/product/add}" sec:authorize="hasAuthority('ADMIN')" role="button" tabindex="-1" class="w-25 mx-auto mt-2 btn btn-primary" th:text="#{product.add.title}"></a>
+
+
+<div style="height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 1rem; margin-top: 2rem">
+
+  <form id = "search_form" class="row d-flex justify-content-center w-50 gap-3" th:action="@{/product}" th:object="${search}" method="get">
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10">
+        <div class="input-group mb-3">
+          <input type="search" th:field="*{searchProduct}" class="form-control" th:placeholder="#{product.search.form.looking}" th:value="${search.getSearchProduct()}">
+          <button class="btn btn-outline-secondary" type="submit" id="button-search" th:text="#{product.search.form.submit}"></button>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5">
+        <label for="" th:text="#{product.search.form.price.min}"></label>
+        <input type="number" th:field="*{minPrice}" th:value="${search.minPrice}" min="0" class="form-control" th:placeholder="#{product.search.form.price.min}">
+      </div>
+      <div class="col-md-5">
+        <label for="" th:text="#{product.search.form.price.max}"></label>
+        <input type="number" th:field="*{maxPrice}" th:value="${search.maxPrice}" min="0" class="form-control" th:placeholder="#{product.search.form.price.max}">
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5">
+        <label for="" th:text="#{product.search.form.size.min}"></label>
+        <input type="number" th:field="*{minSize}" th:value="${search.minSize}" min="0" class="form-control" th:placeholder="#{product.search.form.size.min}">
+      </div>
+      <div class="col-md-5">
+        <label for="" th:text="#{product.search.form.size.max}"></label>
+        <input type="number" th:field="*{maxSize}" th:value="${search.maxSize}" min="0" class="form-control" th:placeholder="#{product.search.form.size.max}">
+      </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-4">
+        <label for="color" class="form-label" th:text="#{product.search.form.color}"></label>
+        <select th:field="*{color}" class="form-select">
+            <option value=""></option>
+          <option th:each="color: ${colors}" th:value="${color}" th:text="#{'color.' + __${color.name().toLowerCase()}__}" th:selected="${color.name().equals(search.color)}"></option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label for="category" class="form-label" th:text="#{product.search.form.category}"></label>
+        <select th:field="*{category}" class="form-select">
+            <option value="0"></option>
+          <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.localeEn}"></option>
+        </select>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-3">
+            <label for="sort" class="form-label" th:text="Sort"></label>
+            <select th:field="*{sort}" class="form-select">
+                <option value="sortNovelty" th:selected="${search.sort.equals('sortNovelty')}">Novelty</option>
+                <option value="sortNameAsc" th:selected="${search.sort.equals('sortNameAsc')}">Sort by name asc</option>
+                <option value="sortNameDesc" th:selected="${search.sort.equals('sortNameDesc')}">Sort by name desc</option>
+                <option value="sortPriceAsc" th:selected="${search.sort.equals('sortPriceAsc')}">Sort by price asc</option>
+                <option value="sortPriceDesc" th:selected="${search.sort.equals('sortPriceDesc')}">Sort by price desc</option>
+            </select>
+        </div>
+    </div>
+  </form>
+
+    <hr class="mt-5">
+
+    <div class="container" th:if="${!products.isEmpty()}">
+        <div class="row row-cols-1 row-cols-md-4 g-5">
+            <div class="col" th:each="product: ${products}">
+                <div class="card h-100" style="width: 20rem;">
+                    <img th:src="@{|/image/${product.image.id}|}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.shortName}"></h5>
+                        <p class="card-text text-truncate" th:text="${product.fullName}"></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a th:href="@{|/product/${product.id}|}" role="button" tabindex="-1" class="btn btn-primary" th:text="#{product.search.result.more}"></a>
+                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/product/edit/${product.id}|}" role="button" tabindex="-1" class="btn btn-success" th:text="#{product.search.result.edit}"></a>
+                            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/product/delete/${product.id}|}" role="button" tabindex="-1" class="btn btn-danger" th:text="#{product.search.result.delete}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pages text-center mt-5 mb-4 w-100">
+            <div class="btn-group w-25" role="group">
+                <a th:if="${page > 1}" th:href="@{'/product?' + ${query} + '&page=1'}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.first}"></a>
+                <a th:if="${page < pages}" th:href="@{'/product?' + ${query} + '&page=' + ${page + 1}}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.next}"></a>
+                <a th:if="${page > 1}" th:href="@{'/product?' + ${query} + '&page=' + ${page - 1}}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.prev}"></a>
+                <a th:if="${page < pages}" th:href="@{'/product?' + ${query} + '&page=' + ${pages}}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.last}"></a>
+            </div>
+        </div>
+
+        <h1 th:text="#{product.search.result.nothing}" th:if="${products.isEmpty()}"> </h1>
+    </div>
+
+</div>
+
+<div th:replace="content/footer"></div>
+
+</body>
+</html>

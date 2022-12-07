@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</head>
+<body class="d-flex flex-column min-vh-100 h-100">
+<div th:replace="content/header"></div>
+
+<!--/*@thymesVar id="user" type="com.arsen.internet.shop.soap.app.model.User"*/-->
+<div class="container-fluid text-center mt-md-3">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+        <img style="width: 20rem; height: 20rem" class="rounded-circle img-fluid" th:if="${user.image != null}"
+             th:src="@{|/image/${user.image.id}?user=true|}"  alt="">
+
+        <img style="width: 20rem; height: 20rem" class="rounded-circle img-fluid" th:if="${user.image == null}"
+             src="https://cdn4.iconfinder.com/data/icons/e-commerce-181/512/477_profile__avatar__man_-512.png" alt="">
+    </div>
+    <div class="col-md-5">
+      <h1 th:text="${user.firstName + ' ' + user.lastName}"></h1>
+
+      <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: .2rem; align-items: center;">
+        <div class="input-group w-75">
+          <button  disabled class="w-25 btn btn-outline-secondary" type="button" id="button-email" th:text="#{user.profile.email}"></button>
+          <input disabled type="email" class="form-control" th:value="${user.email}">
+        </div>
+        <div class="input-group w-75">
+          <button  disabled class="w-25 btn btn-outline-secondary" type="button" id="button-birthdate" th:text="#{user.profile.birthdate}"></button>
+          <input disabled type="text" class="form-control" th:value="${user.birthDate}">
+        </div>
+        <div class="input-group w-75">
+          <button  disabled class="w-25 btn btn-outline-secondary" type="button" id="button-balance" th:text="#{user.profile.balance}"></button>
+          <input disabled type="number" class="form-control" th:value="${user.balance}">
+        </div>
+      </div>
+
+      <div class="row text-center" style="margin-top: 4rem;">
+        <div class="btn-group justify-content-center" role="group">
+          <a th:href="@{/edit}" role="button" tabindex="-1" class="btn btn-primary" th:text="#{user.profile.edit}"></a>
+          <a th:href="@{/edit/password}" role="button" tabindex="-1" class="btn btn-warning" th:text="#{user.profile.password.change}"></a>
+          <a th:href="@{/topup}" role="button" tabindex="-1" class="btn btn-danger" th:text="#{user.profile.top.up}"></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div th:replace="content/footer"></div>
+</body>
+</html>

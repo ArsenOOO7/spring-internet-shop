@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div th:replace="content/header"></div>
+
+<div class="container">
+  <h1 class="text-center mt-md-3" th:text="#{'cart.title.' + __${type}__}"></h1>
+    <div class="row row-cols-1 row-cols-md-4 g-5" th:if="${!carts.isEmpty()}">
+      <div class="col" th:each="cart: ${carts}">
+        <div class="card h-100" style="width: 20rem;">
+          <img th:src="@{|/image/${cart.product.image.id}|}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><a th:href="@{|/product/show/${cart.product.id}|}" th:text="${cart.product.shortName}"></a></h5>
+            <p class="card-text" th:text="${cart.date}"></p>
+            <p class="card-text" th:text="${cart.price} + '$ / ' + ${cart.quantity}"></p>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="#{admin.user.cart.change}">
+            </button>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" th:text="#{admin.user.cart.change.status}"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form th:action="@{|/admin/cart/edit/${cart.id}|}" method="post" class="text-center">
+                      <select name="status" id="status">
+                        <option th:each="state: ${cart.status.values()}" th:value="${state}" th:text="#{'cart.status.' + __${state.name().toLowerCase()}__}" th:selected="${state == cart.status}"></option>
+                      </select>
+                      <button class="btn btn-primary mx-auto mt-md-2 text-center" th:text="#{admin.user.cart.change}"></button>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pages text-center mt-5 mb-4 w-100" th:if="${!carts.isEmpty()}">
+      <div class="btn-group w-25" role="group">
+        <a th:if="${page > 1}" th:href="@{'/admin/cart/' + ${userId} + '/' + ${type} + '?page=1'}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.first}"></a>
+        <a th:if="${page < pages}" th:href="@{'/admin/cart/' + ${userId} + '/' + ${type} + '?page=' + ${page + 1}}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.next}"></a>
+        <a th:if="${page > 1}" th:href="@{'/admin/cart/' + ${userId} + '/' + ${type} + '?page=' + ${page - 1}}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.prev}"></a>
+        <a th:if="${page < pages}" th:href="@{'/admin/cart/' + ${userId} + '/' + ${type} + '?page=' + ${pages}}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50" th:text="#{pages.pagination.last}"></a>
+      </div>
+    </div>
+
+  <h1 th:if="${carts.isEmpty() && type.equalsIgnoreCase('carted')}" th:text="#{admin.user.cart.empty.carted}"></h1>
+  <h1 th:if="${carts.isEmpty() && type.equalsIgnoreCase('purchased')}" th:text="#{admin.user.cart.empty.purchased}"></h1>
+  <h1 th:if="${carts.isEmpty() && type.equalsIgnoreCase('cancelled')}" th:text="#{admin.user.cart.empty.cancelled}"></h1>
+
+</div>
+
+<div th:replace="content/footer"></div>
+</body>
+</html>

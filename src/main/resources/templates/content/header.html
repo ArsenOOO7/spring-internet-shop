@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg bg-dark" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <div class="container">
+        <a href="" class="navbar-brand text-white">
+            <img src="https://spring.io/images/spring-logo-9146a4d3298760c2e7e49595184e1975.svg" alt="" width="90" height="25">
+            <th:block th:text="#{panel.title}"></th:block>
+        </a>
+        <div class="navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a th:href="@{/product}" class="nav-link text-white" th:text="#{panel.products}"></a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:href="@{/login}" class="nav-link text-white" th:text="#{panel.sign.in}" sec:authorize="!isAuthenticated()"></a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/register}" class="nav-link text-white" th:text="#{panel.sign.up}" sec:authorize="!isAuthenticated()"></a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:href="@{/admin/users}" class="nav-link text-white" sec:authorize="hasAuthority('ADMIN')" th:text="#{panel.users}"></a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/category}" class="nav-link text-white" sec:authorize="hasAuthority('ADMIN')" th:text="#{panel.categories}"></a>
+                </li>
+
+                <li class="nav-item">
+                    <a th:href="@{/profile}" class="nav-link text-white" sec:authorize="hasAuthority('USER')" th:text="#{panel.profile}"></a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/cart}" class="nav-link text-white" sec:authorize="hasAuthority('USER')" th:text="#{panel.cart}"></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" th:text="#{panel.select.language}"></a>
+                    <ul class="dropdown-menu  dropdown-menu-dark">
+                        <li><a class="dropdown-item text-white lang" href="#" id="ua">Українська</a></li>
+                        <li><a class="dropdown-item text-white lang" href="#" id="en">English</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
