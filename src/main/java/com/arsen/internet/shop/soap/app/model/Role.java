@@ -13,14 +13,14 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", indexes = @Index(name = "roles_db_idx_name", columnList = "name"))
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
 }

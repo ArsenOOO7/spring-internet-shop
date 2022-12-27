@@ -11,7 +11,7 @@ import javax.persistence.*;
  * @author Arsen Sydoryk
  */
 @Entity
-@Table(name = "users_block")
+@Table(name = "users_block", indexes = @Index(name = "users_blocks_db_idx_user", columnList = "user_id"))
 @Setter
 @Getter
 public class UserBlock {
@@ -21,16 +21,16 @@ public class UserBlock {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column
+    @Column(nullable = false)
     private String reason;
 
-    @Column
+    @Column(nullable = false)
     private long startTime;
 
-    @Column
+    @Column(nullable = false)
     private long endTime;
 
     /**

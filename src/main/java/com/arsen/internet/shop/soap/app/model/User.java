@@ -17,7 +17,9 @@ import java.util.List;
  * User entity
  * @author Arsen Sydoryk
  */
-@Table(name = "users")
+@Table(name = "users", indexes = {
+        @Index(name = "users_db_idx_login", columnList = "login"),
+        @Index(name = "users_db_idx_email", columnList = "email")})
 @Entity
 @Setter
 @Getter
@@ -28,23 +30,23 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String firstName;
-    @Column
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String login;
-    @Column
+    @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private Date birthDate;
 
-    @Column
+    @Column(nullable = false)
     private double balance = 0.0;
 
     @ManyToOne

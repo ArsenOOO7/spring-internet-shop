@@ -20,7 +20,7 @@ import java.util.Date;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "cart")
+@Table(name = "cart", indexes = {@Index(name = "cart_db_idx_user_id", columnList = "user_id")})
 public class Cart {
 
     @Id
@@ -28,12 +28,12 @@ public class Cart {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     @ToString.Exclude
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     @Column

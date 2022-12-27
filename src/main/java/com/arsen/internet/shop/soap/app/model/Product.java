@@ -17,23 +17,23 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "products")
+@Table(name = "products", indexes = @Index(name = "products_db_idx_cat_id", columnList = "category_id"))
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String shortName;
-    @Column
+    @Column(nullable = false)
     private String fullName;
-    @Column
+    @Column(nullable = false)
     private String description;
 
-    @Column
+    @Column(nullable = false)
     private long quantity;
-    @Column
+    @Column(nullable = false)
     private double price;
 
     @Formula("(select count(cart.id) from cart where cart.product_id = id and cart.status = 'BOUGHT')")
@@ -45,7 +45,7 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private SizeUnit sizeUnit;
 
-    @Column
+    @Column(nullable = false)
     private long sizeValue;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
@@ -56,7 +56,7 @@ public class Product {
     @JoinColumn(name = "preview_image", nullable = true)
     private Image image;
 
-    @Column
+    @Column(nullable = false)
     private Date createdAt;
 
 }
