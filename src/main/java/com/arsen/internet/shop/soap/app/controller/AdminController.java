@@ -1,6 +1,6 @@
 package com.arsen.internet.shop.soap.app.controller;
 
-import com.arsen.internet.shop.soap.app.dto.user.UserBan;
+import com.arsen.internet.shop.soap.app.dto.user.UserBanDto;
 import com.arsen.internet.shop.soap.app.model.Cart;
 import com.arsen.internet.shop.soap.app.model.User;
 import com.arsen.internet.shop.soap.app.model.UserBlock;
@@ -134,7 +134,7 @@ public class AdminController {
     public String ban(@PathVariable long userId, Model model){
         log.trace("Looking for user with id " + userId + "...");
         log.trace("Setting UserBan DTO to model attribute");
-        model.addAttribute("ban", new UserBan(userService.readById(userId).getId()));
+        model.addAttribute("ban", new UserBanDto(userService.readById(userId).getId()));
         return "admin/admin_ban";
     }
 
@@ -146,7 +146,7 @@ public class AdminController {
      * @return view
      */
     @PostMapping("/users/ban/{userId}")
-    public String ban(@PathVariable long userId, @ModelAttribute("ban") UserBan ban){
+    public String ban(@PathVariable long userId, @ModelAttribute("ban") UserBanDto ban){
 
         log.trace("Looking for user with id " + userId + "...");
         User user = userService.readById(userId);

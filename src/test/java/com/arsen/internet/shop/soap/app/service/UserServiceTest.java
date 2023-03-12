@@ -1,13 +1,9 @@
 package com.arsen.internet.shop.soap.app.service;
 
 import com.arsen.internet.shop.soap.app.exception.NullEntityReferenceException;
-import com.arsen.internet.shop.soap.app.model.Product;
 import com.arsen.internet.shop.soap.app.model.User;
 import com.arsen.internet.shop.soap.app.model.UserBlock;
-import com.arsen.internet.shop.soap.app.model.data.Color;
-import com.arsen.internet.shop.soap.app.model.data.SizeUnit;
 import com.arsen.internet.shop.soap.app.repository.UserBlockRepository;
-import com.arsen.internet.shop.soap.app.repository.UserBlockRepositoryTest;
 import com.arsen.internet.shop.soap.app.repository.UserRepository;
 import com.arsen.internet.shop.soap.app.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;

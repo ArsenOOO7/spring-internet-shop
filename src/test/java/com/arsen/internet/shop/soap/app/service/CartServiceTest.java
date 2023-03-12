@@ -10,7 +10,6 @@ import com.arsen.internet.shop.soap.app.model.data.Color;
 import com.arsen.internet.shop.soap.app.model.data.SizeUnit;
 import com.arsen.internet.shop.soap.app.repository.CartRepository;
 import com.arsen.internet.shop.soap.app.service.impl.CartServiceImpl;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
