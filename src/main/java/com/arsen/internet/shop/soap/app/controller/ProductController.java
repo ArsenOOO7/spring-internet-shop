@@ -3,6 +3,7 @@ package com.arsen.internet.shop.soap.app.controller;
 import com.arsen.internet.shop.soap.app.dto.product.ProductAddDto;
 import com.arsen.internet.shop.soap.app.dto.product.ProductEditDto;
 import com.arsen.internet.shop.soap.app.dto.product.ProductSearchDto;
+import com.arsen.internet.shop.soap.app.dto.product.ProductTransformer;
 import com.arsen.internet.shop.soap.app.model.Image;
 import com.arsen.internet.shop.soap.app.model.Product;
 import com.arsen.internet.shop.soap.app.model.data.Color;
@@ -115,7 +116,7 @@ public class ProductController {
         }
 
         log.trace("Converting DTO to Product...");
-        Product product = ProductAddDto.convertToProduct(productDto);
+        Product product = ProductTransformer.convertToProduct(productDto);
         log.trace("Setting category to product (id: " + productDto.getCategory() + ")");
         product.setCategory(categoryService.readById(productDto.getCategory()));
 
