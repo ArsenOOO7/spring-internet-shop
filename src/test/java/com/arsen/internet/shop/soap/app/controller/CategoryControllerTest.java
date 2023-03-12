@@ -54,7 +54,7 @@ public class CategoryControllerTest {
     public void checkWithoutAdmin() throws Exception {
         User user = userService.readById(1);
         mockMvc.perform(get("/category").with(user(user)))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().is(404));
     }
 
     @Test

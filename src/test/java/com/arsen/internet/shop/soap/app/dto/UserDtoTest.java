@@ -1,10 +1,7 @@
 package com.arsen.internet.shop.soap.app.dto;
 
 import com.arsen.internet.shop.soap.app.InternetShopApplication;
-import com.arsen.internet.shop.soap.app.dto.user.UserEditDto;
-import com.arsen.internet.shop.soap.app.dto.user.UserPasswordChangeDto;
-import com.arsen.internet.shop.soap.app.dto.user.UserRegisterDto;
-import com.arsen.internet.shop.soap.app.dto.user.UserTopUpDto;
+import com.arsen.internet.shop.soap.app.dto.user.*;
 import com.arsen.internet.shop.soap.app.model.User;
 import com.arsen.internet.shop.soap.app.repository.RoleRepository;
 import org.junit.jupiter.api.Test;
@@ -197,7 +194,7 @@ public class UserDtoTest {
                 .birthDate("2022-12-01")
                 .build();
 
-        User user = UserRegisterDto.dtoToUser(registerDto);
+        User user = UserTransformer.registerDtoToUser(registerDto);
         user.setRole(repository.readRoleByName("ADMIN"));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
@@ -228,7 +225,7 @@ public class UserDtoTest {
                 .birthDate("2022-12-01")
                 .build();
 
-        User user = UserRegisterDto.dtoToUser(registerDto);
+        User user = UserTransformer.registerDtoToUser(registerDto);
         user.setRole(repository.readRoleByName("ADMIN"));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
