@@ -1,27 +1,24 @@
 package com.arsen.internet.shop.soap.app.controller;
 
 import com.arsen.internet.shop.soap.app.dto.user.UserRegisterDto;
+import com.arsen.internet.shop.soap.app.dto.user.UserTransformer;
 import com.arsen.internet.shop.soap.app.model.Image;
 import com.arsen.internet.shop.soap.app.model.User;
 import com.arsen.internet.shop.soap.app.repository.ImageRepository;
 import com.arsen.internet.shop.soap.app.service.UserService;
 import com.arsen.internet.shop.soap.app.utils.Generator;
 import com.arsen.internet.shop.soap.app.utils.ImageUtil;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 
@@ -101,7 +98,7 @@ public class LoginController {
 
 
         log.trace("Converting DTO to User entity...");
-        User user = UserRegisterDto.dtoToUser(userRegisterDto);
+        User user = UserTransformer.registerDtoToUser(userRegisterDto);
 
         log.trace("Getting Multipart File...");
         MultipartFile avatar = userRegisterDto.getAvatar();

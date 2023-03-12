@@ -4,13 +4,11 @@ import com.arsen.internet.shop.soap.app.annotation.FieldsMatch;
 import com.arsen.internet.shop.soap.app.annotation.Password;
 import com.arsen.internet.shop.soap.app.annotation.UniqueEmail;
 import com.arsen.internet.shop.soap.app.annotation.UniqueLogin;
-import com.arsen.internet.shop.soap.app.model.User;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
 
 
 /**
@@ -56,25 +54,5 @@ public class UserRegisterDto {
     private String birthDate;
 
     private MultipartFile avatar;
-
-
-    /**
-     * Convert DTO to user
-     * @param dto current DTO
-     * @return User
-     */
-    public static User dtoToUser(UserRegisterDto dto){
-        return new User(
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getEmail(),
-                dto.getLogin(),
-                dto.getPassword(),
-                Date.valueOf(dto.getBirthDate())
-        );
-    }
-
-
-
 
 }

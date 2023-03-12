@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBan {
+public class UserBanDto {
 
     private long id;
     private String reason;
@@ -23,7 +23,7 @@ public class UserBan {
      * Base constructor
      * @param id of user
      */
-    public UserBan(long id){
+    public UserBanDto(long id){
         this.id = id;
     }
 
