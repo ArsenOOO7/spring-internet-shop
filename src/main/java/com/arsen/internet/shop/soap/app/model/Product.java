@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -57,6 +58,6 @@ public class Product {
     private Image image;
 
     @Column(nullable = false)
-    private Date createdAt;
+    private LocalDate createdAt = LocalDate.now();
 
 }
