@@ -15,12 +15,18 @@ before_script:
 
 build-job:
   stage: lint
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
   script:
     - echo 'Compiling'
     - mvn compile
 
 test-job:
   stage: test
+  only:
+    - merge_requests
+    - main
   script:
     - echo 'Testing'
     - pwd
