@@ -1,4 +1,5 @@
-image: maven:3.9-eclipse-temurin-19
+#image: maven:3.9-eclipse-temurin-19
+image: openjdk:19-slim
 
 stages:
   - lint
