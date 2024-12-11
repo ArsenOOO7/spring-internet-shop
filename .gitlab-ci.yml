@@ -30,7 +30,7 @@ test-job:
     reports:
       coverage_report:
         coverage_format: jacoco
-        path: target/site/jacoco/jacoco.xml
+        path: target/site/jacoco
 
 package-job:
   stage: package
