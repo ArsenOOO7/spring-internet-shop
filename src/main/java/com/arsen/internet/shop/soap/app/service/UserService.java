@@ -4,6 +4,7 @@ import com.arsen.internet.shop.soap.app.exception.NullEntityReferenceException;
 import com.arsen.internet.shop.soap.app.model.User;
 import com.arsen.internet.shop.soap.app.model.UserBlock;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * User Service
  * @author Arsen Sydoryk
  */
+@Transactional
 public interface UserService {
 
 
