@@ -18,7 +18,7 @@ test-job:
     - echo 'Testing'
     - ls
     - pwd
-    - mvn test
+    - mvn test -Dspring.profiles.active=test
   artifacts:
     reports:
       coverage_report:
