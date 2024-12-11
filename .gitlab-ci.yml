@@ -3,7 +3,7 @@ image: maven:3.9-eclipse-temurin-19
 stages:
   - lint
   - test
-  - package
+  - build
   - deploy
 
 cache:
@@ -13,7 +13,7 @@ cache:
 before_script:
   - mvn --version
 
-build-job:
+lint-job:
   stage: lint
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -40,8 +40,8 @@ test-job:
       junit:
         - target/surefire-reports/TEST-*.xml
 
-package-job:
-  stage: package
+build-job:
+  stage: build
   only:
     - main
   script:
