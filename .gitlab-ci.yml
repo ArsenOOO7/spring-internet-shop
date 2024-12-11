@@ -37,6 +37,8 @@ test-job:
       coverage_report:
         coverage_format: jacoco
         path: target/site/jacoco/jacoco.xml
+      junit:
+        - target/surefire-reports/TEST-*.xml
 
 package-job:
   stage: package
