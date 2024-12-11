@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  spring-internet-shop-pg:
+    image: "postgres:16.2"
+    container_name: "spring-internet-shop-pg"
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    image: "internet-shop"
+    container_name: "spring-internet-shop-app"
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - spring-internet-shop-pg
+    environment:
+      - DB_URL=jdbc:postgresql://spring-internet-shop-pg:5432/internet_shop
