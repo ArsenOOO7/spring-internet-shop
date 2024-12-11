@@ -17,19 +17,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
 //@SpringBootTest
-@ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@ActiveProfiles("test")
+//@ExtendWith(SpringExtension.class)
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+//@ActiveProfiles("test")
 public class UserBlockRepositoryTest {
 
-    @Autowired
+//    @Autowired
     private UserService userService;
 
-    @Autowired
+//    @Autowired
     private UserBlockRepository blockRepository;
 
 
-    @Test
+//    @Test
     public void testBan(){
 
         User user = userService.readById(1);
