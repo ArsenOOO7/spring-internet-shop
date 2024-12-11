@@ -10,21 +10,22 @@ cache:
   paths:
     - .m2/repository/
 
+before_script:
+  - mvn --version
+
 build-job:
   stage: lint
-  image: openjdk:19-slim
   script:
     - echo 'Compiling'
     - mvn compile
 
 test-job:
   stage: test
-  image: openjdk:19-slim
   script:
     - echo 'Testing'
-    - ls
     - pwd
     - mvn test
+    - ls
   artifacts:
     reports:
       coverage_report:
@@ -33,7 +34,6 @@ test-job:
 
 package-job:
   stage: package
-  image: openjdk:19-slim
   only:
     - main
   script:
