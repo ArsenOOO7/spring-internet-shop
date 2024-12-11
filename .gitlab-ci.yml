@@ -1,0 +1,38 @@
+image: maven:3.9-eclipse-temurin-19
+
+stages:
+  - lint
+  - test
+  - package
+  - deploy
+
+build-job:
+  stage: lint
+  script:
+    - echo 'Compiling'
+    - mvn compile
+
+test-job:
+  stage: test
+  script:
+    - echo 'Testing'
+    - mvn test
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: jacoco
+        path: target/site/jacoco/jacoco.xml
+
+package-job:
+  stage: package
+  only:
+    - main
+  script:
+    - mvn package -DskipTests -B
+
+deploy-job:
+  stage: deploy
+  only:
+    - main
+  script:
+    - echo 'Deploy'
