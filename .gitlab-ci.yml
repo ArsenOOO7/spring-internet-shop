@@ -1,5 +1,4 @@
-#image: maven:3.9-eclipse-temurin-19
-image: openjdk:19-slim
+image: maven:3.9-eclipse-temurin-19
 
 stages:
   - lint
@@ -13,12 +12,14 @@ cache:
 
 build-job:
   stage: lint
+  image: openjdk:19-slim
   script:
     - echo 'Compiling'
     - mvn compile
 
 test-job:
   stage: test
+  image: openjdk:19-slim
   script:
     - echo 'Testing'
     - ls
@@ -32,6 +33,7 @@ test-job:
 
 package-job:
   stage: package
+  image: openjdk:19-slim
   only:
     - main
   script:
