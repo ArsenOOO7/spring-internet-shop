@@ -16,6 +16,8 @@ test-job:
   stage: test
   script:
     - echo 'Testing'
+    - ls
+    - pwd
     - mvn test
   artifacts:
     reports:
