@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 public class UserBlockServiceTest {
 
     @MockBean

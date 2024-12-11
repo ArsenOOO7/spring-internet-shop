@@ -6,6 +6,10 @@ stages:
   - package
   - deploy
 
+cache:
+  paths:
+    - .m2/repository/
+
 build-job:
   stage: lint
   script:
@@ -18,7 +22,7 @@ test-job:
     - echo 'Testing'
     - ls
     - pwd
-    - mvn test -Dspring.profiles.active=test
+    - mvn test
   artifacts:
     reports:
       coverage_report:
